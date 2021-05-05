@@ -1,0 +1,56 @@
+Aula 01
+
+Desafio 01: investigar porque a classe tratamento é desbalanceada
+
+desafio 02: plotar as ultimas 5 linhas da tabela.
+
+desafio 03: proporção das classes tratamento
+
+desafio 04: Quantas drogas foram investigadas
+
+desafio 05: procurar o metodo query
+
+desafio 06: renomear as colunas tirando o hífen
+
+desafio 07: colocar titulo no gráfico.
+
+desafio 08: criar um resumo do que foi aprendido.
+
+aula 2
+
+desafio 01 : ordernar o grafico to 5 compostos
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+#confing seaborn
+sns.set()
+url = 'https://github.com/alura-cursos/imersaodados3/blob/main/dados/dados_experimentos.zip?raw=true'
+dados = pd.read_csv(url, compression ='zip')
+
+#desafio 01:
+print (dados['tratamento'].value_counts(normalize=True))
+dados['tratamento'].value_counts()
+
+#desafio 02:
+dados.tail
+
+#desafio 03
+dados['tratamento'].value_counts().plot.pie()
+dados['tratamento'].value_counts( normalize=True)
+
+#desafio 04
+dados.rename(columns={'droga': 'composto'}, inplace =True)
+cod_composto= dados["composto"].value_counts ()[0:5]
+
+cod_compostos= dados['composto'].value_counts().index[0:5]
+
+cod_compostos
+dados.query('composto in @cod_compostos')
+plt.figure(figsize=(10,8))
+ax = sns.countplot(x='composto', data=dados.query('composto in @cod_compostos'))
+ax.set_title ('TOP 5 COMPOSTOS')
+plt.show()
+
+
